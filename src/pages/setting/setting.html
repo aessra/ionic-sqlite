@@ -1,0 +1,48 @@
+<ion-header>
+	<ion-navbar color="jacksons_purple">
+		<button ion-button menuToggle icon-only>
+			<ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+		</button>
+		<ion-title>
+			Settings
+		</ion-title>
+		<!-- <ion-buttons end>
+			<button ion-button icon-only (click)="calculator()">
+				<ion-icon ios="ios-calculator" md="md-calculator"></ion-icon>
+			</button>
+		</ion-buttons> -->
+	</ion-navbar>
+</ion-header>
+
+<ion-content style="background-color: #C8F7C5">
+	<ion-refresher (ionRefresh)="doRefresh($event)">
+    	<ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
+	<ion-list>
+		<ion-item-sliding *ngFor="let rekening of rekenings">
+			<ion-item (click)="openModal({id: rekening.id})">
+				<ion-avatar item-start>
+			    	<img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiNGRkZGRkY7IiBkPSJNMjU2LDUwNEMxMTkuMDMyLDUwNCw4LDM5Mi45NjgsOCwyNTZTMTE5LjAzMiw4LDI1Niw4czI0OCwxMTEuMDMyLDI0OCwyNDggIEM1MDMuODQ4LDM5Mi45MDQsMzkyLjkwNCw1MDMuODQ4LDI1Niw1MDR6Ii8+CjxwYXRoIHN0eWxlPSJmaWxsOiNFMDRGNUY7IiBkPSJNMjU2LDE2YzEzMi41NTIsMCwyNDAsMTA3LjQ0OCwyNDAsMjQwUzM4OC41NTIsNDk2LDI1Niw0OTZTMTYsMzg4LjU1MiwxNiwyNTYgIEMxNi4xNTIsMTIzLjUxMiwxMjMuNTEyLDE2LjE1MiwyNTYsMTYgTTI1NiwwQzExNC42MTYsMCwwLDExNC42MTYsMCwyNTZzMTE0LjYxNiwyNTYsMjU2LDI1NnMyNTYtMTE0LjYxNiwyNTYtMjU2UzM5Ny4zODQsMCwyNTYsMHogICIvPgo8Y2lyY2xlIHN0eWxlPSJmaWxsOiMzMkJFQTY7IiBjeD0iMjU2IiBjeT0iMjU2IiByPSIyMTkuNzI4Ii8+CjxnPgoJPHBhdGggc3R5bGU9ImZpbGw6I0ZGRkZGRjsiIGQ9Ik0yNjEuNDI0LDkxLjc1MkwxMzguMTg0LDE3NC40aDI0Ni40OEwyNjEuNDI0LDkxLjc1MnogTTI2MS40MjQsMTUyLjc0NCAgIGMtNy41MTIsMC0xMy42LTYuMDg4LTEzLjYtMTMuNnM2LjA4OC0xMy42LDEzLjYtMTMuNmM3LjUxMiwwLDEzLjYsNi4wODgsMTMuNiwxMy42Yy0wLjAwOCw3LjUwNC02LjA5NiwxMy41OTItMTMuNiwxMy41OTJWMTUyLjc0NCAgIHoiLz4KCTxyZWN0IHg9IjEyOC45NiIgeT0iMzIyLjMyIiBzdHlsZT0iZmlsbDojRkZGRkZGOyIgd2lkdGg9IjI2NC45NiIgaGVpZ2h0PSIyNS44MjQiLz4KCTxwYXRoIHN0eWxlPSJmaWxsOiNGRkZGRkY7IiBkPSJNMjU3LjY3MiwyOTAuMDE2di0xMC41ODRjLTUuNjcyLTAuMDE2LTExLjIyNC0xLjYxNi0xNi4wNC00LjYxNmwyLjUxMi03LjAzMiAgIGM0LjQ5NiwyLjkyLDkuNzM2LDQuNDg4LDE1LjA5Niw0LjUxMmM3LjQ0LDAsMTIuNDgtNC4yOTYsMTIuNDgtMTAuMjcyYzAtNS43NjgtNC4wODgtOS4zMjgtMTEuODU2LTEyLjQ4ICAgYy0xMC42OTYtNC4xOTItMTcuMjk2LTkuMDE2LTE3LjI5Ni0xOC4xMzZjMC4xMjgtOC44NzIsNi45ODQtMTYuMTkyLDE1LjgzMi0xNi44OTZ2LTEwLjU3Nmg2LjQ5NnYxMC4xNjggICBjNC43NzYsMC4wNDgsOS40NTYsMS4zMTIsMTMuNiwzLjY3MmwtMi42MzIsNi45MmMtMy45OTItMi4zNzYtOC41Ni0zLjYxNi0xMy4yMDgtMy41NjhjLTguMDgsMC0xMS4xMiw0LjgtMTEuMTIsOS4wMTYgICBjMCw1LjQ1NiwzLjg4LDguMTg0LDEzLjAwOCwxMS45NTJjMTAuOCw0LjQwOCwxNi4yNDgsOS44NTYsMTYuMjQ4LDE5LjJjLTAuMTc2LDkuMjk2LTcuMzEyLDE2Ljk3Ni0xNi41NjgsMTcuODI0djEwLjkwNGgtNi42ICAgTDI1Ny42NzIsMjkwLjAxNnoiLz4KCTxyZWN0IHg9IjE1Ni4wMDgiIHk9IjE5Ni45OTIiIHN0eWxlPSJmaWxsOiNGRkZGRkY7IiB3aWR0aD0iMjUuODI0IiBoZWlnaHQ9IjEwMS40OTYiLz4KCTxyZWN0IHg9IjE5Ni4wMjQiIHk9IjE5Ni45OTIiIHN0eWxlPSJmaWxsOiNGRkZGRkY7IiB3aWR0aD0iMjUuODI0IiBoZWlnaHQ9IjEwMS40OTYiLz4KCTxyZWN0IHg9IjMwMSIgeT0iMTk2Ljk5MiIgc3R5bGU9ImZpbGw6I0ZGRkZGRjsiIHdpZHRoPSIyNS44MjQiIGhlaWdodD0iMTAxLjQ5NiIvPgoJPHJlY3QgeD0iMzQxLjAxNiIgeT0iMTk2Ljk5MiIgc3R5bGU9ImZpbGw6I0ZGRkZGRjsiIHdpZHRoPSIyNS44MjQiIGhlaWdodD0iMTAxLjQ5NiIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" />
+			    </ion-avatar>
+			    <h2>{{ rekening.rekening_name }}</h2>
+	    		<p text-right>{{ rekening.balance | currency:'IDR':false }}</p>
+			</ion-item>
+			<!-- <ion-item-options side="left">
+        		<button ion-button color="light" icon-left (click)="delete(rekening)">
+	          		<img src="assets/img/garbage.png">
+				</button>
+			</ion-item-options> -->
+			<ion-item-options side="right">
+        		<button ion-button color="light" icon-left (click)="remark(rekening)">
+	          		<img src="assets/img/marker.png">
+				</button>
+        		<button ion-button color="light" icon-left (click)="edit(rekening)">
+	          		<img src="assets/img/eraser.png">
+				</button>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+	<ion-fab bottom left>
+    	<button ion-fab color="danger" mini (click)="addRekening()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+</ion-content>
